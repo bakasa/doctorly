@@ -24,7 +24,7 @@ Run the tests:
 dotnet test tests/Doctorly.Domain.Tests          # pure, no infra
 dotnet test tests/Doctorly.Application.Tests     # Moq-based, no infra
 docker compose up -d db
-dotnet test tests/Doctorly.Api.Tests             # persistence tests against real Postgres, needs the database running
+dotnet test tests/Doctorly.Api.Tests             # persistence + HTTP endpoint tests, needs the database running
 ```
 
 ## Architecture
@@ -217,7 +217,7 @@ concurrency race, and it keeps all domain-rule violations mapping to one status 
 | Events: Title, Description, Attendees, Start/End | Done |
 | Sensible field size limits | Done - enforced in the domain |
 | Notifications capability | Done - console/log implementation, real Email/iCal/MQ is a swap-in |
-| Appropriate testing | Done - 25 domain + 7 application + 3 infrastructure tests, all against real Postgres for the infra layer |
+| Appropriate testing | Done - 25 domain + 7 application + 8 Postgres-backed (3 persistence, 5 HTTP endpoint) tests |
 | OpenAPI specification | Done - `/openapi/v1.json` |
 | Auto-generated client | Done - `src/Doctorly.Client`, see below |
 | Public-facing auto-generated documentation | Done - Scalar at `/scalar` |
