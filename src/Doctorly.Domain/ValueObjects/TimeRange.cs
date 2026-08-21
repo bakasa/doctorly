@@ -12,8 +12,10 @@ public sealed record TimeRange
         if (end <= start)
             throw new DomainException("End time must be after start time.");
 
-        Start = start;
-        End = end;
+        // Postgres timestamptz (via Npgsql) only accepts DateTimeOffset with a zero
+        // offset - normalize here so every non-UTC caller doesn't have to know that
+        Start = start.ToUniversalTime();
+        End = end.ToUniversalTime();
     }
 
     public bool Overlaps(TimeRange other) => Start < other.End && other.Start < End;

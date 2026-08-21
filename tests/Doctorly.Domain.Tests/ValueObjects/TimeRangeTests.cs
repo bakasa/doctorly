@@ -35,6 +35,19 @@ public class TimeRangeTests
     }
 
     [Fact]
+    public void Constructor_NonUtcOffset_NormalizesToUtc()
+    {
+        var start = new DateTimeOffset(2026, 8, 22, 10, 0, 0, TimeSpan.FromHours(2));
+        var end = start.AddMinutes(30);
+
+        var range = new TimeRange(start, end);
+
+        Assert.Equal(TimeSpan.Zero, range.Start.Offset);
+        Assert.Equal(TimeSpan.Zero, range.End.Offset);
+        Assert.Equal(start.ToUniversalTime(), range.Start);
+    }
+
+    [Fact]
     public void Overlaps_OverlappingRanges_ReturnsTrue()
     {
         var start = DateTimeOffset.UtcNow;

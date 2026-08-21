@@ -11,6 +11,7 @@ public sealed class EventConfiguration : IEntityTypeConfiguration<Event>
     {
         builder.ToTable("Events");
         builder.HasKey(e => e.Id);
+        builder.Property(e => e.Id).ValueGeneratedNever();
 
         builder.Property(e => e.Title).HasMaxLength(Event.MaxTitleLength).IsRequired();
         builder.Property(e => e.Description).HasMaxLength(Event.MaxDescriptionLength).IsRequired();
@@ -31,6 +32,7 @@ public sealed class EventConfiguration : IEntityTypeConfiguration<Event>
             a.ToTable("Attendees");
             a.WithOwner().HasForeignKey("EventId");
             a.HasKey(x => x.Id);
+            a.Property(x => x.Id).ValueGeneratedNever();
 
             a.Property(x => x.Name).HasMaxLength(Attendee.MaxNameLength).IsRequired();
             a.Property(x => x.IsAttending);
