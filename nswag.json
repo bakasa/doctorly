@@ -1,0 +1,19 @@
+{
+  "runtime": "Net90",
+  "documentGenerator": {
+    "fromDocument": {
+      "json": "openapi.json",
+      "output": null
+    }
+  },
+  "codeGenerators": {
+    "openApiToCSharpClient": {
+      "generateClientClasses": true,
+      "generateDtoTypes": true,
+      "injectHttpClient": true,
+      "namespace": "Doctorly.Client",
+      "className": "DoctorlyClient",
+      "output": "src/Doctorly.Client/DoctorlyClient.g.cs"
+    }
+  }
+}

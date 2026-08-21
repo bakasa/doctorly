@@ -17,7 +17,8 @@ public sealed class EventConfiguration : IEntityTypeConfiguration<Event>
         builder.Property(e => e.Description).HasMaxLength(Event.MaxDescriptionLength).IsRequired();
         builder.Property(e => e.Status).HasConversion<string>().HasMaxLength(20).IsRequired();
 
-        // domain-owned optimistic concurrency token, see ADR in README
+        // domain-owned optimistic concurrency token, readable from Application/DTOs
+        // without a Postgres-specific concept (e.g. xmin) crossing the layer boundary
         builder.Property(e => e.Version).IsConcurrencyToken();
 
         builder.OwnsOne(e => e.TimeRange, tr =>

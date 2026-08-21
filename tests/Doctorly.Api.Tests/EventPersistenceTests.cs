@@ -6,10 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Doctorly.Api.Tests;
 
-// throwaway - verifies Repository/UnitOfWork materialization against a real Postgres
-// before the API layer is built on top of it. Deleted once the real integration
-// tests (WebApplicationFactory-based) cover the same ground.
-public class InfrastructureSmokeTest
+// exercises EventRepository/UnitOfWork directly against Postgres, below the HTTP layer
+public class EventPersistenceTests
 {
     private static DoctorlyDbContext CreateContext()
     {
