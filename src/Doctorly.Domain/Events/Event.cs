@@ -22,7 +22,10 @@ public sealed class Event
     public int Version { get; private set; }
 
     public IReadOnlyCollection<Attendee> Attendees => _attendees.AsReadOnly();
-    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+    // snapshot, not a live view - callers (e.g. the dispatcher) must see a stable list
+    // even after ClearDomainEvents() runs later in the same unit of work
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.ToList();
 
     private Event()
     {
